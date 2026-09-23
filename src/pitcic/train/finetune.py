@@ -73,7 +73,9 @@ def build_arm(arm: str, dropout: float):
         model, _ = build_unet(dropout)
     else:
         base = config.require(
-            "checkpoints.base", "run: python scripts/fetch/checkpoints.py --only base"
+            "checkpoints.base",
+            "the DeepGlobe base model is not redistributed (see "
+            "scripts/fetch/checkpoints.py). Build it with: make base",
         )
         model = tf.keras.models.load_model(base, compile=False)
     if model.output_shape[-1] != N_CLASSES:

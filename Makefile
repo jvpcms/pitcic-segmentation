@@ -3,7 +3,7 @@
 #
 #   make setup          create the venv and install the package
 #   make data           fetch the annotated CBERS-4A dataset
-#   make weights        fetch the two released checkpoints
+#   make weights        fetch the released fine-tuned checkpoint
 #   make eval           score the released fine-tuned model  <- the short path
 #   make sweep          re-run the full learning-rate sweep (GPU, hours)
 #
@@ -46,7 +46,8 @@ sweep-half: data weights
 results:
 	$(BIN)/python scripts/collect_results.py
 
-# Stage 1. Only needed to rebuild the base checkpoint instead of fetching it.
+# Stage 1. Needed to reproduce the fine-tuning arms: the base checkpoint is not
+# redistributable, so it is built here rather than downloaded.
 deepglobe: setup
 	$(BIN)/pip install -e '.[kaggle]'
 	$(BIN)/python scripts/fetch/deepglobe.py

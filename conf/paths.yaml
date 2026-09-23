@@ -17,10 +17,13 @@ deepglobe:
   root: data/deepglobe
   tiles: data/deepglobe/tiles_2m    # built by pitcic.data.prepare_deepglobe
 
-# Fetched by scripts/fetch/checkpoints.py from this repo's GitHub releases.
+# `finetuned` is fetched by scripts/fetch/checkpoints.py from this repo's
+# GitHub release. `base` is NOT released: DeepGlobe's licence does not permit
+# redistributing derivatives, so the base model is produced locally by
+# `make base`, which writes it under checkpoints.root/deepglobe/.
 checkpoints:
   root: artifacts/checkpoints
-  base: artifacts/checkpoints/deepglobe_unet_base.keras
+  base: artifacts/checkpoints/deepglobe/best.keras
   finetuned: artifacts/checkpoints/finetune_lr3e-4_best.keras
 
 runs_root: runs

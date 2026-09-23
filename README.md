@@ -43,8 +43,8 @@ support the claim that DeepGlobe pretraining is necessary.
 ```sh
 make setup      # venv + install
 make data       # the annotated dataset, from Zenodo
-make weights    # the two released checkpoints
-make eval       # score the fine-tuned model under the protocol
+make weights    # the released fine-tuned checkpoint
+make eval       # score it under the protocol
 ```
 
 `make eval` runs on CPU if it has to, slowly. Everything it needs is fetched;
@@ -53,6 +53,7 @@ nothing in this repository is data.
 To re-run the experiment instead of checking it:
 
 ```sh
+make base        # stage 1, needs Kaggle credentials and hours of GPU
 make sweep       # 9 runs: zero-shot, 5 fine-tune LRs, 3 from-scratch LRs
 make sweep-half  # the same arms on the first 40 train tiles
 make results     # fold runs/*/metrics.json into results/*.csv
@@ -70,7 +71,7 @@ the scripts in `scripts/fetch/`.
 |---|---|---|
 | 100 annotated CBERS-4A tiles | [doi:10.5281/zenodo.22922625](https://doi.org/10.5281/zenodo.22922625) | CC BY-SA 4.0 |
 | DeepGlobe Land Cover | Kaggle, needs your own credentials | its own terms, no redistribution |
-| trained checkpoints | this repository's GitHub release | CC BY-SA 4.0 |
+| fine-tuned checkpoint | this repository's GitHub release | CC BY-SA 4.0 |
 
 The annotated dataset is published separately, with its own README, annotation
 guidelines and known-issues list:
@@ -79,7 +80,13 @@ The version DOI pinned in `conf/paths.yaml` is the exact data every number here
 was computed from; the concept DOI above is the one to cite.
 
 DeepGlobe cannot be mirrored, so `scripts/fetch/deepglobe.py` downloads it from
-the source under the terms you accept there.
+the source under the terms you accept there. For the same reason the **DeepGlobe
+base model is not released**: DigitalGlobe's Internal Use License Agreement
+licenses the imagery for the licensee's internal use and prohibits distributing
+the products or derivatives to third parties, and weights trained on it are not
+clearly outside that prohibition. `make base` rebuilds it locally. Reproducing
+the fine-tuning arms needs that step; reproducing the reported evaluation does
+not, because the fine-tuned checkpoint is released.
 
 ## Layout
 
@@ -146,5 +153,12 @@ DOI above. For the code, `CITATION.cff` in this repository.
 
 ## Licence
 
-Code under the MIT licence (`LICENSE`). The released checkpoints and the
-annotated dataset are CC BY-SA 4.0, inherited from INPE's CBERS-4A imagery.
+Code under the MIT licence (`LICENSE`). The released fine-tuned checkpoint and
+the annotated dataset are CC BY-SA 4.0, inherited from INPE's CBERS-4A imagery.
+
+No DeepGlobe imagery is redistributed here. The released checkpoint was, however,
+initialised from weights trained on DeepGlobe before being adapted on the
+CC BY-SA dataset, and the DeepGlobe base model itself is not released for that
+reason. If your use of the released checkpoint needs a cleaner provenance, the
+`scratch` arm reaches 80,4% mIoU with no DeepGlobe contact at all and is
+reproducible from the dataset alone.

@@ -1,22 +1,26 @@
 #!/usr/bin/env python3
 """Fetch the trained model weights from this repository's GitHub release.
 
-    python scripts/fetch/checkpoints.py            # both
-    python scripts/fetch/checkpoints.py --only base
+    python scripts/fetch/checkpoints.py
 
-Two checkpoints are released, and they are the only two the report quotes:
-
-``deepglobe_unet_base.keras``
-    U-Net / EfficientNetB0 trained on DeepGlobe at 2 m/px. The starting point
-    of every fine-tuning arm, and the zero-shot baseline on its own.
+One checkpoint is released, and it is the one every headline number belongs to:
 
 ``finetune_lr3e-4_best.keras``
-    The best fine-tuning arm, lr 3e-4, 82,0% mIoU under the protocol. Load this
-    one to reproduce the reported segmentation without training anything.
+    The best fine-tuning arm, lr 3e-4, 82,0% mIoU under the protocol. Load it to
+    reproduce the reported segmentation without training anything.
 
-Nothing else is released. The other sweep runs exist only as metrics, which are
-committed under ``results/`` -- thirteen more checkpoints would be 1,5 GB of
-weights nobody would load twice.
+The DeepGlobe base model is **not** released. DeepGlobe is distributed under
+DigitalGlobe's Internal Use License Agreement, which grants a licence for the
+licensee's internal use and prohibits distributing the products or derivatives
+to third parties. Weights trained on that imagery are not clearly outside that
+prohibition, so they are not redistributed here. Rebuild the base model with
+``make base``, which downloads DeepGlobe from its source under the terms you
+accept there. Reproducing the fine-tuning arms needs that step; reproducing the
+reported evaluation does not.
+
+The other sweep runs are not released either, for a different reason: their
+metrics are committed under ``results/`` and thirteen more checkpoints would be
+1,5 GB of weights nobody would load twice.
 """
 
 from __future__ import annotations
@@ -35,20 +39,17 @@ from pitcic import config  # noqa: E402
 
 REPO = "jvpcms/pitcic-segmentation"
 TAG = "v1.0.0"
-WANTED = {"base": "deepglobe_unet_base.keras", "finetuned": "finetune_lr3e-4_best.keras"}
+ASSET = "finetune_lr3e-4_best.keras"
 
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    ap.add_argument("--only", choices=sorted(WANTED), help="fetch one of them")
     ap.add_argument("--tag", default=TAG, help=f"release tag (default {TAG})")
     args = ap.parse_args()
 
-    keys = [args.only] if args.only else sorted(WANTED)
-    todo = {k: config.resolve(f"checkpoints.{k}") for k in keys}
-    if all(p.exists() for p in todo.values()):
-        for k, p in todo.items():
-            print(f"have  {k}: {p}")
+    dest = config.resolve("checkpoints.finetuned")
+    if dest.exists():
+        print(f"have  {dest}")
         return
 
     url = f"https://api.github.com/repos/{REPO}/releases/tags/{args.tag}"
@@ -62,14 +63,11 @@ def main() -> None:
             f"  check it exists: https://github.com/{REPO}/releases/tag/{args.tag}"
         )
     assets = {a["name"]: a["browser_download_url"] for a in rel.get("assets", [])}
-
-    for key, dest in todo.items():
-        name = WANTED[key]
-        if name not in assets:
-            raise SystemExit(
-                f"{name} is not on release {args.tag}; it carries {sorted(assets)}"
-            )
-        download(assets[name], dest)
+    if ASSET not in assets:
+        raise SystemExit(
+            f"{ASSET} is not on release {args.tag}; it carries {sorted(assets)}"
+        )
+    download(assets[ASSET], dest)
 
 
 if __name__ == "__main__":

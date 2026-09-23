@@ -23,6 +23,7 @@ SOFTWARE.
 ---
 
 This licence covers the code only. The annotated dataset
-(doi:10.5281/zenodo.22922625) and the released model checkpoints are CC BY-SA
-4.0, inherited from INPE's CBERS-4A imagery. DeepGlobe is not redistributed
-here and keeps its own terms.
+(doi:10.5281/zenodo.22922625) and the released fine-tuned checkpoint are CC BY-SA
+4.0, inherited from INPE's CBERS-4A imagery. DeepGlobe imagery is not
+redistributed here and keeps its own terms, and the DeepGlobe-trained base model
+is not released for the same reason.

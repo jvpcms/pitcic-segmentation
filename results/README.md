@@ -16,6 +16,7 @@ in a fresh process after an out-of-memory failure at the eval step; the
 re-scoring rewrote the protocol block and those runs' training fields were not
 carried over. The metrics themselves are unaffected.
 
-The full weights are not committed. Two checkpoints are released as assets on
-this repository's GitHub release: the DeepGlobe base model and the best
-fine-tuning arm. The other thirteen exist only as these rows.
+The full weights are not committed. One checkpoint is released as an asset on
+this repository's GitHub release, the best fine-tuning arm. The DeepGlobe base
+model is not released, because DeepGlobe's licence does not permit
+redistributing derivatives. The other thirteen runs exist only as these rows.
