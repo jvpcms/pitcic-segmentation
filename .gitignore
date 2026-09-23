@@ -1,0 +1,13 @@
+# Everything under data/ and artifacts/ is fetched, never committed.
+data/
+artifacts/
+runs/
+
+__pycache__/
+*.py[cod]
+.venv/
+.ipynb_checkpoints/
+.DS_Store
+
+# Notebooks are committed with outputs stripped.
+# nbstripout --install  sets this up as a git filter.

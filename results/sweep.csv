@@ -1,0 +1,16 @@
+run,arm,lr,train_tiles,train_subset,epochs_run,best_epoch,pixel_accuracy,miou,subtiles_kept,subtiles_total
+finetune-lr0.0001,finetune,0.0001,80,,29,14,0.9469,0.8115,286,320
+finetune-lr0.0001-tr40,finetune,0.0001,40,40,27,12,0.9345,0.7756,286,320
+finetune-lr0.0003,finetune,0.0003,80,,38,23,0.948,0.8196,286,320
+finetune-lr0.0003-tr40,finetune,0.0003,40,40,43,28,0.9422,0.8075,286,320
+finetune-lr0.001,finetune,0.001,80,,37,22,0.9419,0.8161,286,320
+finetune-lr1e-05,finetune,1e-05,80,,70,55,0.9465,0.8082,286,320
+finetune-lr3e-05,finetune,3e-05,80,,,,0.9466,0.8117,286,320
+finetune-lr3e-05-tr40,finetune,3e-05,40,40,27,12,0.9326,0.7704,286,320
+scratch-lr0.0001,scratch,0.0001,80,,,,0.9414,0.8035,286,320
+scratch-lr0.0001-tr40,scratch,0.0001,40,40,56,41,0.9353,0.7853,286,320
+scratch-lr0.0003,scratch,0.0003,80,,22,7,0.934,0.7865,286,320
+scratch-lr0.0003-tr40,scratch,0.0003,40,40,54,39,0.9391,0.791,286,320
+scratch-lr3e-05,scratch,3e-05,80,,43,28,0.9338,0.7838,286,320
+scratch-lr3e-05-tr40,scratch,3e-05,40,40,67,52,0.9068,0.7287,286,320
+zeroshot,zeroshot,,80,,,,0.4213,0.2369,286,320

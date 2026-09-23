@@ -1,0 +1,15 @@
+# Stage 1: train the base model on DeepGlobe resampled to 2 m/px.
+# These are the settings of experiment 10, the model every fine-tune starts from.
+seed: 42
+tile_size: 256
+n_classes: 6                # Agriculture and Rangeland merged at load time
+batch_size: 32
+lr: 1.0e-4
+epochs: 50
+lr_factor: 0.5
+lr_patience: 5
+es_patience: 10
+dropout: 0.3                # decoder only
+encoder: efficientnetb0     # ImageNet weights
+freeze_epochs: 0            # experiment 9 measured no benefit; kept available
+overlap_grid: true          # 3x3 overlapping crops per image, experiment 8

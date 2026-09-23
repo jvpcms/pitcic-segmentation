@@ -1,0 +1,15 @@
+# The learning-rate sweep. Comparing one run of each arm confounds the effect of
+# the initial weights with the effect of the learning rate each happened to get,
+# so both arms are swept and the GROUPS are compared.
+#
+# Full budget: 8 runs. Every fine-tune run beat every scratch run.
+# Half budget: 6 runs. That separation does not survive.
+full_budget:
+  train_subset: null
+  finetune: [1.0e-5, 3.0e-5, 1.0e-4, 3.0e-4, 1.0e-3]
+  scratch:  [3.0e-5, 1.0e-4, 3.0e-4]
+
+half_budget:
+  train_subset: 40
+  finetune: [3.0e-5, 1.0e-4, 3.0e-4]
+  scratch:  [3.0e-5, 1.0e-4, 3.0e-4]

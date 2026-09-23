@@ -1,0 +1,34 @@
+cff-version: 1.2.0
+title: "PITCIC land cover segmentation"
+message: "If you use this code, please cite it."
+type: software
+authors:
+  - family-names: "Paim de Cerqueira Melo de Souza"
+    given-names: "João Victor"
+    affiliation: "Instituto Militar de Engenharia"
+  - family-names: "Siviero Passos"
+    given-names: "Luan"
+    affiliation: "Instituto Militar de Engenharia"
+abstract: >-
+  Reproduction code for the land cover segmentation stage of PITCIC: a U-Net
+  with an EfficientNetB0 encoder trained on DeepGlobe at 2 m/px and adapted to
+  CBERS-4A WPM imagery over the Brazilian Pampa with 100 hand-annotated tiles.
+  Output is a six-class land cover raster built to feed an existing terrain
+  traversability estimator as its land cover layer.
+keywords:
+  - semantic segmentation
+  - remote sensing
+  - land cover
+  - CBERS-4A
+  - terrain traversability
+license: MIT
+version: 1.0.0
+repository-code: "https://github.com/jvpcms/pitcic-segmentation"
+references:
+  - type: dataset
+    title: "Pampa CBERS-4A Land Cover"
+    doi: 10.5281/zenodo.22922625
+    authors:
+      - family-names: "Paim de Cerqueira Melo de Souza"
+        given-names: "João Victor"
+        affiliation: "Instituto Militar de Engenharia"

@@ -1,0 +1,24 @@
+# Stage 2: adapt the base model to CBERS-4A imagery over the Pampa.
+seed: 42
+tile_size: 256
+n_classes: 6
+
+batch_size: 8               # 4 GB VRAM. Do not raise.
+eval_batch_size: 4          # smaller still: cuDNN profiles conv algorithms and
+                            # every candidate can fail on workspace allocation
+epochs: 80
+lr: 0.0003                    # the best arm of the sweep; conf/sweep.yaml has the grid
+lr_factor: 0.5
+lr_patience: 6
+es_patience: 15
+dropout: 0.3                # matches the base run; only `scratch` builds a fresh model
+
+# Evaluation protocol. Fixed before any fine-tune result was read.
+protocol:
+  thresholds: [0.05, 0.25]  # sub-tile dropped at or above this Unknown fraction
+  reported: 0.05            # the one quoted in the report
+  exclude_unknown_gt: true
+
+# Training subset size. null means all 80 annotated train tiles; 40 reproduces
+# the half-budget experiment, taking the first 40 by train_rank.
+train_subset: null

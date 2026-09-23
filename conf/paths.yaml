@@ -1,0 +1,26 @@
+# Every path here points inside data/ or artifacts/, both gitignored and both
+# populated by scripts/fetch/. Nothing in this repository ships data.
+#
+# Override any of these with PITCIC_<KEY>, e.g. PITCIC_DATA_ROOT=/mnt/disk/data.
+
+data_root: data
+artifact_root: artifacts
+
+# Fetched by scripts/fetch/pampa_dataset.py from Zenodo (DOI below).
+pampa:
+  root: data/pampa-cbers-landcover
+  doi: 10.5281/zenodo.22922626      # v1.0.0, the version every reported number used
+  concept_doi: 10.5281/zenodo.22922625
+
+# Fetched by scripts/fetch/deepglobe.py. Needs Kaggle credentials.
+deepglobe:
+  root: data/deepglobe
+  tiles: data/deepglobe/tiles_2m    # built by pitcic.data.prepare_deepglobe
+
+# Fetched by scripts/fetch/checkpoints.py from this repo's GitHub releases.
+checkpoints:
+  root: artifacts/checkpoints
+  base: artifacts/checkpoints/deepglobe_unet_base.keras
+  finetuned: artifacts/checkpoints/finetune_lr3e-4_best.keras
+
+runs_root: runs
