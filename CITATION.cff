@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-title: "PITCIC land cover segmentation"
+title: "Satellite land cover segmentation for terrain traversability (PITCIC)"
 message: "If you use this code, please cite it."
 type: software
 authors:
@@ -23,7 +23,7 @@ keywords:
   - terrain traversability
 license: MIT
 version: 1.0.0
-repository-code: "https://github.com/jvpcms/pitcic-segmentation"
+repository-code: "https://github.com/jvpcms/satellite-landcover-segmentation"
 references:
   - type: dataset
     title: "Pampa CBERS-4A Land Cover"

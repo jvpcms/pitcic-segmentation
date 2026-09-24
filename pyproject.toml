@@ -1,5 +1,5 @@
 [project]
-name = "pitcic-segmentation"
+name = "satellite-landcover-segmentation"
 version = "1.0.0"
 description = "Reproduction code for land cover segmentation feeding a terrain traversability estimator (PITCIC, IME / Brazilian Army)"
 requires-python = ">=3.11"

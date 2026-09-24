@@ -1,9 +1,10 @@
-# PITCIC — land cover segmentation for terrain traversability
+# Satellite land cover segmentation for terrain traversability
 
-Reproduction code for the segmentation stage of **PITCIC** (*Inteligência
-Artificial aplicada ao Processo de Integração Terreno, Condições Meteorológicas,
-Inimigo e Considerações Civis*), a final-year project at the Instituto Militar
-de Engenharia.
+Six-class land cover segmentation of CBERS-4A imagery at 2 m/px, over the
+Brazilian Pampa. Reproduction code for the segmentation stage of **PITCIC**
+(*Inteligência Artificial aplicada ao Processo de Integração Terreno,
+Condições Meteorológicas, Inimigo e Considerações Civis*), a final-year project
+at the Instituto Militar de Engenharia.
 
 The pipeline the project sits in is:
 

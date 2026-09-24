@@ -37,7 +37,7 @@ from _common import download
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "src"))
 from pitcic import config  # noqa: E402
 
-REPO = "jvpcms/pitcic-segmentation"
+REPO = "jvpcms/satellite-landcover-segmentation"
 TAG = "v1.0.0"
 ASSET = "finetune_lr3e-4_best.keras"
 
