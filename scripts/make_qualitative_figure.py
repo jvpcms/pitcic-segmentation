@@ -31,6 +31,12 @@ from pitcic.taxonomy import CLASS_NAMES, CLASS_TO_COLOR, UNKNOWN_IDX
 DEFAULT_TILE = "CBERS_4A_WPM_20220729_212_150_L4_43_44"
 
 
+PANEL_TITLES = {
+    "en": ["CBERS-4A composite", "annotation", "prediction"],
+    "pt": ["composição CBERS-4A", "anotação de referência", "predição"],
+}
+
+
 def colorize(labels: np.ndarray) -> np.ndarray:
     out = np.zeros(labels.shape + (3,), dtype=np.uint8)
     for idx, color in enumerate(CLASS_TO_COLOR):
@@ -45,6 +51,11 @@ def main() -> None:
     ap.add_argument("--out", type=Path, default=None,
                     help="default: docs/img/qualitative.png inside the repository")
     ap.add_argument("--dpi", type=int, default=140)
+    ap.add_argument("--lang", choices=("en", "pt"), default="en",
+                    help="language of the panel titles")
+    ap.add_argument("--no-title", action="store_true",
+                    help="omit the figure title, for use with a caption that "
+                         "already carries the tile id and the metrics")
     args = ap.parse_args()
 
     from pitcic import config
@@ -125,7 +136,7 @@ def main() -> None:
     for ax, data, title in zip(
         axes,
         [image, colorize(truth), colorize(pred)],
-        ["CBERS-4A composite", "annotation", "prediction"],
+        PANEL_TITLES[args.lang],
     ):
         ax.imshow(data)
         ax.set_title(title, fontsize=11)
@@ -142,13 +153,16 @@ def main() -> None:
     fig.legend(handles=handles, loc="lower center", ncol=len(handles),
                frameon=False, fontsize=9, bbox_to_anchor=(0.5, 0.0))
     n_scored = len([n for n in CLASS_NAMES if m["gt_pixels"][n] > 0])
-    fig.suptitle(
-        f"{args.tile}   {w * 2} x {h * 2} m at 2 m/px   "
-        f"this tile: pixel accuracy {acc:.1%}, "
-        f"mIoU {m['miou']:.1%} over its {n_scored} classes",
-        fontsize=10, y=0.97,
-    )
-    fig.tight_layout(rect=(0, 0.07, 1, 0.94))
+    if args.no_title:
+        fig.tight_layout(rect=(0, 0.07, 1, 1.0))
+    else:
+        fig.suptitle(
+            f"{args.tile}   {w * 2} x {h * 2} m at 2 m/px   "
+            f"this tile: pixel accuracy {acc:.1%}, "
+            f"mIoU {m['miou']:.1%} over its {n_scored} classes",
+            fontsize=10, y=0.97,
+        )
+        fig.tight_layout(rect=(0, 0.07, 1, 0.94))
     out.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(out, dpi=args.dpi)
     print(f"wrote {out}  acc {acc:.4f}  mIoU {m['miou']:.4f}")
