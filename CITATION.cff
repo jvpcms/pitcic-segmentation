@@ -6,9 +6,6 @@ authors:
   - family-names: "Paim de Cerqueira Melo de Souza"
     given-names: "João Victor"
     affiliation: "Instituto Militar de Engenharia"
-  - family-names: "Siviero Passos"
-    given-names: "Luan"
-    affiliation: "Instituto Militar de Engenharia"
 abstract: >-
   Reproduction code for the land cover segmentation stage of PITCIC: a U-Net
   with an EfficientNetB0 encoder trained on DeepGlobe at 2 m/px and adapted to
