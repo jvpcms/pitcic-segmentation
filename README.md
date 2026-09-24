@@ -32,6 +32,22 @@ Brazilian Pampa using 100 hand-annotated tiles.
 Both under the protocol in `src/pitcic/eval/protocol.py`, at the 5% Unknown
 threshold, on the 20-tile test split.
 
+![Composite, annotation and prediction for one test tile](docs/img/qualitative.png)
+
+One tile of the test split, 2048 × 2048 m: a river confluence with a sandbar,
+gallery forest and cropland. Its pixel accuracy is **85,8%**, well below the
+94,8% of the split, and that is the point of showing it. Its mIoU, **76,4%**,
+is not directly comparable to the split's, because only four classes appear in
+this tile and the average therefore spans four terms instead of five. The tiles
+that score highest are the ones covered by a single class: eight of the twenty
+are ≥99% water, urban or cropland alone, and four of those score 100%. A tile
+with four classes in it is where the model can be seen to fail. The narrow side
+channels inside the forest are lost, and a strip of the left bank turns from
+forest into cropland. That second error is the expensive one downstream, for
+reasons in [docs/interface.md](docs/interface.md).
+
+Regenerate it with `python scripts/make_qualitative_figure.py --tile <tile_id>`.
+
 The headline result of the sweep is a negative one and the code is arranged so
 it can be checked: a model trained on the same 80 tiles from ImageNet weights
 alone, with no DeepGlobe contact, reaches 80,4% mIoU. The gap to fine-tuning is
